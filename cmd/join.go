@@ -71,7 +71,7 @@ func newJoinRunner() *runner {
 	runner := newRunner(joinPhasesSetup)
 	runner.registerPhases(
 		stop(),
-		certificates(),
+		//certificates(),
 		membership(),
 		joinInstall(),
 		joinConfigure(),

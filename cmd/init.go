@@ -71,7 +71,7 @@ func newInitRunner() *runner {
 	runner := newRunner(initPhasesSetup)
 	runner.registerPhases(
 		initInstall(),
-		certificates(),
+		//certificates(),
 		snapshot(),
 		initConfigure(),
 		initStart(),

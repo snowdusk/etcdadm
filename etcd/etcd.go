@@ -24,14 +24,12 @@ import (
 	"github.com/coreos/etcd/clientv3"
 	"github.com/coreos/etcd/clientv3/snapshot"
 	"github.com/coreos/etcd/etcdserver/etcdserverpb"
-	"github.com/coreos/etcd/pkg/transport"
-
 	"sigs.k8s.io/etcdadm/apis"
 )
 
 // ClientForEndpoint returns an etcd client that will use the given etcd endpoint.
 func ClientForEndpoint(endpoint string, cfg *apis.EtcdAdmConfig) (*clientv3.Client, error) {
-	tlsInfo := transport.TLSInfo{
+	/*tlsInfo := transport.TLSInfo{
 		CertFile:      cfg.EtcdctlCertFile,
 		KeyFile:       cfg.EtcdctlKeyFile,
 		TrustedCAFile: cfg.TrustedCAFile,
@@ -39,12 +37,12 @@ func ClientForEndpoint(endpoint string, cfg *apis.EtcdAdmConfig) (*clientv3.Clie
 	tlsConfig, err := tlsInfo.ClientConfig()
 	if err != nil {
 		return nil, fmt.Errorf("unable to create TLS client: %v", err)
-	}
+	}*/
 
 	cli, err := clientv3.New(clientv3.Config{
 		Endpoints:   []string{endpoint},
 		DialTimeout: 5 * time.Second,
-		TLS:         tlsConfig,
+		//TLS:         tlsConfig,
 	})
 	return cli, err
 }

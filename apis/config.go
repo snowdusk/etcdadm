@@ -229,7 +229,7 @@ func setDynamicDefaults(cfg *EtcdAdmConfig) error {
 	cfg.EtcdctlExecutable = filepath.Join(cfg.InstallDir, "etcdctl")
 	cfg.EtcdctlShellWrapper = filepath.Join(cfg.InstallDir, "etcdctl.sh")
 
-	cfg.PeerCertFile = filepath.Join(cfg.CertificatesDir, constants.EtcdPeerCertName)
+	/*cfg.PeerCertFile = filepath.Join(cfg.CertificatesDir, constants.EtcdPeerCertName)
 	cfg.PeerKeyFile = filepath.Join(cfg.CertificatesDir, constants.EtcdPeerKeyName)
 	cfg.PeerTrustedCAFile = filepath.Join(cfg.CertificatesDir, constants.EtcdCACertName)
 
@@ -238,7 +238,7 @@ func setDynamicDefaults(cfg *EtcdAdmConfig) error {
 	cfg.TrustedCAFile = filepath.Join(cfg.CertificatesDir, constants.EtcdCACertName)
 
 	cfg.EtcdctlCertFile = filepath.Join(cfg.CertificatesDir, constants.EtcdctlClientCertName)
-	cfg.EtcdctlKeyFile = filepath.Join(cfg.CertificatesDir, constants.EtcdctlClientKeyName)
+	cfg.EtcdctlKeyFile = filepath.Join(cfg.CertificatesDir, constants.EtcdctlClientKeyName)*/
 
 	cfg.GOMAXPROCS = runtime.NumCPU()
 
@@ -248,8 +248,8 @@ func setDynamicDefaults(cfg *EtcdAdmConfig) error {
 	if err := DefaultClientURLs(cfg); err != nil {
 		return err
 	}
-	DefaultPeerCertSANs(cfg)
-	DefaultServerCertSANs(cfg)
+	//DefaultPeerCertSANs(cfg)
+	//DefaultServerCertSANs(cfg)
 	return nil
 }
 
@@ -309,7 +309,7 @@ func DefaultInitialAdvertisePeerURLs(cfg *EtcdAdmConfig) error {
 		return fmt.Errorf("failed to set default InitialAdvertisePeerURLs: %s", err)
 	}
 	cfg.InitialAdvertisePeerURLs = append(cfg.InitialAdvertisePeerURLs, url.URL{
-		Scheme: "https",
+		Scheme: "http",
 		Host:   fmt.Sprintf("%s:%d", externalAddress.String(), constants.DefaultPeerPort),
 	})
 	return nil
@@ -324,7 +324,7 @@ func DefaultListenPeerURLs(cfg *EtcdAdmConfig) error {
 // DefaultLoopbackClientURL TODO: add description
 func DefaultLoopbackClientURL(cfg *EtcdAdmConfig) {
 	cfg.LoopbackClientURL = url.URL{
-		Scheme: "https",
+		Scheme: "http",
 		Host:   fmt.Sprintf("%s:%d", constants.DefaultLoopbackHost, constants.DefaultClientPort),
 	}
 }
@@ -343,7 +343,7 @@ func DefaultAdvertiseClientURLs(cfg *EtcdAdmConfig) error {
 		return fmt.Errorf("failed to set default AdvertiseClientURLs: %s", err)
 	}
 	cfg.AdvertiseClientURLs = append(cfg.AdvertiseClientURLs, url.URL{
-		Scheme: "https",
+		Scheme: "http",
 		Host:   fmt.Sprintf("%s:%d", externalAddress.String(), constants.DefaultClientPort),
 	})
 	return nil
